@@ -9,7 +9,7 @@ printer_ip = " "
 relations = {}
 hosts= set()
 
-
+# this function resolve an IP address using nslookup and nmblookup tool of bash.
 def resolve(ipa):
     try:
         a = socket.gethostbyaddr(ipa)
@@ -36,6 +36,9 @@ def resolve(ipa):
 #                 host_ip = line.split('->')[1].split(':')[0]
 #                 hosts.add(host_ip)
 
+# this function reads the input file line by line and fills the relations dictionary
+# the keys in this dictionary are printer and value is a set of IP addresses of the hosts that printed on the key printer.
+
 for line in infile.readlines():
     if '->' in line:
         line=line.replace('No SNMP response received before timeout','')
@@ -52,10 +55,17 @@ for line in infile.readlines():
 
 print (relations)
 
-outfile = open('printer_graph_results3.txt','w')
+# in this section writes the information in the relations dictionary on the file to be used by jupyter to plot graph
+# for each pair of hosts which reside in the same set (value of dictionary) should have a line in the output file
+# since they printed on the same printer
+
+outfile = open('printer_graph_results3_resolved.txt','w')
 for printer_ip in relations:
     if len(relations[printer_ip]) > 0:
         for i in relations[printer_ip]:
             for j in relations[printer_ip]:
                 if i != j :
-                    outfile.write(i + "\t" + j + "\t1\n")
+                    try:
+                        outfile.write(resolve(i) + "\t" + resolve(j) + "\t1\n")
+                    except TypeError:
+                        outfile.write(i + "\t" + j + "\t1\n")

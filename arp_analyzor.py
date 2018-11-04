@@ -2,6 +2,10 @@ import pyshark
 import socket
 from subprocess import check_output,CalledProcessError
 
+
+#for the ARP Packets we read the pcap from the CNR and filter the traffic for arp packets but the ARPs which is not emmited from
+#the DHCP Server 146.48.99.254
+
 cap = pyshark.FileCapture('/root/captures/CNR_Big_capture.pcap',display_filter="not arp.src.proto_ipv4 == 146.48.99.254 and arp")
 
 
@@ -18,7 +22,12 @@ def resolve(ipa):
             hostname=str(out).split("\\n")[1].split()[0].replace("\\t", "")
             return hostname
         except CalledProcessError:
-            pass
+            return ipa
+
+# This is the main function which reads every packet and fills the relations Dictionary.
+# This Dict has a key for source IP address and the value is a set of IP addresses that the key is trying to resolve
+# through ARP protocol
+
 
 def print_conversation_header(pkt):
 
@@ -39,22 +48,23 @@ cap.apply_on_packets(print_conversation_header)
 outfile = open('arp_graph.txt','w')
 
 
+# 
 counter = 0
 for key in relations:
     temp_set = set(relations[key])
     for element in temp_set:
         count = relations[key].count(element)
-        try:
-            print (key + " ====> "  + resolve(key))
-        except TypeError:
-
-
-            print(key)
-        try:
-            print(element + " ====> "  + resolve(element))
-        except TypeError:
-            print(element)
-        #outfile.write(resolve(key) + "\t" + resolve(element) + "\t" + str(count) + '\n')
+        # try:
+        #     print (key + " ====> "  + resolve(key))
+        # except TypeError:
+        #     print(key)
+        # try:
+        #     print(element + " ====> "  + resolve(element))
+        # except TypeError:
+        #     print(element)
+        myline = resolve(key) + "\t" + resolve(element) + "\t" + str(count) + '\n'
+        print (myline)
+        outfile.write(myline)
 
 #now I need to convert IP numbers to host
 

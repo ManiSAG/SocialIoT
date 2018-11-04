@@ -4,6 +4,10 @@ import sys
 import time
 
 
+#This function do the snmp walk on the specified host and OID. it return lines of the snmp output which relaes to the
+# current TCP connection of the printer.
+# this function changes the version of SNMO walk when it does not get a valid result from one version
+
 def walk(host, oid):
     output=""
     for (errorIndication,errorStatus,errorIndex,varBinds) in nextCmd(SnmpEngine(),
@@ -42,6 +46,9 @@ def walk(host, oid):
                 output = output + str(varBind) + "\n"
     return output
 
+
+# this function reveals which IP address tried to connect to which printer .
+# It processes the output of the SNMP walk done by walk function
 def extract_relations(lines,verbose):
     for line in lines.split('\n') :
         if line == "":
