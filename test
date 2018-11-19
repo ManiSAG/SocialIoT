@@ -1,19 +1,84 @@
-1
-192.168.96.187:631->146.48.99.152:39860
-2
-192.168.96.187:631->146.48.99.152:39860
-3
-192.168.96.187:631->146.48.99.152:39860
-4
-192.168.96.187:631->146.48.99.152:39860
-5
-192.168.96.187:631->146.48.99.152:39860
-6
-192.168.96.187:631->146.48.99.152:39860
-7
-192.168.96.187:631->146.48.99.152:39860
-8
-192.168.96.187:631->146.48.99.152:39860
-9
-192.168.96.187:631->146.48.99.152:39860
-10
+Looking up status of 146.48.99.57
+No reply from 146.48.99.57
+
+Looking up status of 146.48.99.127
+No reply from 146.48.99.127
+
+Looking up status of 146.48.99.32
+        DHCP65          <00> -         H <ACTIVE>
+
+        MAC Address = A0-CE-C8-11-3A-32
+
+Looking up status of 146.48.99.87
+No reply from 146.48.99.87
+
+Looking up status of 146.48.99.36
+No reply from 146.48.99.36
+
+Looking up status of 146.48.99.49
+No reply from 146.48.99.49
+
+Looking up status of 146.48.99.86
+        DHCP23          <00> -         H <ACTIVE>
+
+        MAC Address = A8-20-66-4A-C7-EE
+
+Looking up status of 146.48.99.46
+        PC              <00> -         B <ACTIVE>
+        WORKGROUP       <00> - <GROUP> B <ACTIVE>
+        PC              <20> -         B <ACTIVE>
+
+        MAC Address = E0-3F-49-13-51-4D
+
+Looking up status of 146.48.99.102
+No reply from 146.48.99.102
+
+Looking up status of 146.48.99.54
+No reply from 146.48.99.54
+
+Looking up status of 146.48.99.97
+No reply from 146.48.99.97
+
+Looking up status of 146.48.99.37
+No reply from 146.48.99.37
+
+Looking up status of 146.48.99.98
+No reply from 146.48.99.98
+
+Looking up status of 146.48.99.81
+No reply from 146.48.99.81
+
+Looking up status of 146.48.99.94
+No reply from 146.48.99.94
+
+Looking up status of 146.48.99.79
+        DHCP16          <00> -         H <ACTIVE>
+
+        MAC Address = 58-EF-68-14-38-72
+
+Looking up status of 146.48.99.107
+No reply from 146.48.99.107
+
+Looking up status of 146.48.99.60
+        WORKGROUP       <00> - <GROUP> B <ACTIVE>
+        DESKTOP-CBFFT0K <00> -         B <ACTIVE>
+        DESKTOP-CBFFT0K <20> -         B <ACTIVE>
+        WORKGROUP       <1e> - <GROUP> B <ACTIVE>
+
+        MAC Address = 90-1B-0E-BA-42-A4
+
+Looking up status of 146.48.99.116
+No reply from 146.48.99.116
+
+Looking up status of 146.48.99.45
+No reply from 146.48.99.45
+
+Looking up status of 146.48.99.114
+No reply from 146.48.99.114
+
+Looking up status of 146.48.99.50
+No reply from 146.48.99.50
+
+Looking up status of 146.48.99.119
+No reply from 146.48.99.119
+
