@@ -4,6 +4,8 @@ from contextlib import contextmanager
 import signal
 import re
 import subprocess
+import pymysql
+
 
 
 global timeout_time
@@ -41,6 +43,43 @@ def raise_on_timeout(time):
 
 global resolved_dict
 resolved_dict = {}
+
+def run_complex_command(command,cursor):
+    drp_command = "DROP PROCEDURE IF EXISTS select_or_insert;"
+    cursor.execute(drp_command)
+    print(command)
+    cursor.execute(command)
+    call_command = "call select_or_insert(); "
+    cursor.execute(call_command)
+
+
+def resolve_by_db(ip_addr):
+    # Open database connection
+    db = pymysql.connect("localhost", "root", "Vahid737", "lan_hosts")
+
+    try:
+
+        cursor = db.cursor()
+        command = "SELECT ifnull(`Hostname`,`browser_server`) FROM `resolution` WHERE `IP_addr` = '{}';".format(ip_addr)
+        cursor.execute(command)
+        rows = cursor.fetchall()
+    except Exception as e:
+        print("Exception occured:{}".format(e))
+
+
+    if len(rows) == 0:
+        command = "create procedure select_or_insert()\
+                                begin \
+                                    IF NOT EXISTS(SELECT * FROM resolution WHERE `IP_addr` = '{}' ) THEN\
+                                        INSERT INTO `resolution`(`IP_addr`) VALUES ('{}');\
+                                    END IF;\
+                                END ".format(ip_addr, ip_addr)
+        run_complex_command(command,cursor)
+
+    db.commit()
+    db.close()
+    for row in rows:
+        return row[-1]
 
 def resolve_by_host(hostname):
     try:
@@ -102,4 +141,12 @@ def resolver_by_avahi(host):
             hostname = host
         return ip, hostname
 
-# resolve_by_host('124-171-188-87.dyn.iinet.net.au')
+def resolve_by_snmp(host):
+    #-v2c -c public 146.48.98.195  1.3.6.1.2.1.1.5
+    output = subprocess.run(['snmpwalk', '-v2c','-c', 'public', host , "1.3.6.1.2.1.1.5"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdoutput = output.stdout.decode('utf-8')
+    stderror = output.stderr.decode('utf-8')
+    if stdoutput == "":
+        return ""
+    else:
+        return stdoutput.split()[-1]

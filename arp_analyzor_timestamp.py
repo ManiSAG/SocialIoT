@@ -11,79 +11,15 @@ from datetime import datetime,timedelta
 from capinfos import *
 from dateutil import tz
 import numpy as np
-from re
+from resolver import *
+#from mac_vendor import *
 
 
 global timeout_time
 timeout_time = 2
-def raise_error(signum, frame):
-    """This handler will raise an error inside gethostbyname"""
-    raise OSError
-
-@contextmanager
-def set_signal(signum, handler):
-    """Temporarily set signal"""
-    old_handler = signal.getsignal(signum)
-    signal.signal(signum, handler)
-    try:
-        yield
-    finally:
-        signal.signal(signum, old_handler)
-
-@contextmanager
-def set_alarm(time):
-    """Temporarily set alarm"""
-    signal.setitimer(signal.ITIMER_REAL, time)
-    try:
-        yield
-    finally:
-        signal.setitimer(signal.ITIMER_REAL, 0) # Disable alarm
-
-@contextmanager
-def raise_on_timeout(time):
-    """This context manager will raise an OSError unless
-    The with scope is exited in time."""
-    with set_signal(signal.SIGALRM, raise_error):
-        with set_alarm(time):
-            yield
 
 global resolved_dict
 resolved_dict = {}
-
-# this function resolve an IP address using nslookup and nmblookup tool of bash.
-def resolve(ipa):
-    hostname = ""
-    hostname1 = ""
-    hostname2 = ""
-    if ipa in resolved_dict:
-        return resolved_dict[ipa]
-    try:
-        with raise_on_timeout(timeout_time):
-            a = socket.gethostbyaddr(ipa)
-            hostname1 = a[0]
-            resolved_dict[ipa] = hostname1
-            matchObj = re.match(r"(dhcp|vpn)\d*.iit.cnr.it", hostname1)
-            if not matchObj:
-                hostname = hostname1
-    except OSError:
-        pass
-    if hostname == "":
-        try:
-            out = check_output(["nmblookup", "-A", ipa],timeout=timeout_time)
-            hostname2=str(out).split("\\n")[1].split()[0].replace("\\t", "")
-            hostname = hostname2
-        except (CalledProcessError,TimeoutExpired) as e:
-            if hostname1 != "":
-                hostname = hostname1
-            else:
-                hostname = ipa
-
-    return hostname
-
-def
-
-
-
 
 input_pcap = '/root/captures/sofar.pcap'
 #for the ARP Packets we read the pcap from the CNR and filter the traffic for arp packets but the ARPs which is not emmited from
@@ -124,23 +60,17 @@ slots = []
 my_date = start_time
 while my_date < finish_time:
     next_day = datetime(my_date.year, my_date.month, my_date.day, 23, 59, 59, 0)
-    slots.append((my_date.timestamp(),min(next_day.timestamp(),finish_time.timestamp())))
+    if next_day.weekday() < 5: # Just consider the working days of the week
+        slots.append((my_date.timestamp(),min(next_day.timestamp(),finish_time.timestamp())))
     one_sec = timedelta(seconds=1)
     my_date = next_day + one_sec
 
 
 print(slots)
 
-cap = pyshark.FileCapture(input_pcap,display_filter="arp and not arp.dst.proto_ipv4 == 146.48.96.1 and not arp.dst.proto_ipv4 == 146.48.96.2")
-
-
-global relations
-relations = {}
-
-
+cap = pyshark.FileCapture(input_pcap,display_filter="arp")
 
 nd = nested_dict(2, list)
-
 
 
 def calculate_slot(pkt_time):
@@ -156,12 +86,16 @@ def calculate_slot(pkt_time):
 # through ARP protocol
 
 def print_conversation_header(pkt):
-    # x=Decimal(int(pkt.number)/96100)*100
-    # output = round(x, 4)
-    # print(str(output) + "%")
+    # if str(pkt.arp.src_hw_mac).startswith('d8:18:d3'):
+    #     return
     my_data = pkt['ARP']
     src_ip = my_data.src_proto_ipv4
     dst_ip = my_data.dst_proto_ipv4
+    #IP addresses which are related to sysadmin : '146.48.96.3','146.48.96.1','146.48.96.2','146.48.98.155' ,'192.168.100.1'
+    if src_ip == '0.0.0.0' or src_ip.startswith('169.254'):
+        return
+    if dst_ip == '0.0.0.0' or dst_ip.startswith('169.254'):
+        return
     if src_ip == dst_ip :
         return
     if dst_ip in nd:
@@ -169,10 +103,15 @@ def print_conversation_header(pkt):
             src_ip , dst_ip = dst_ip ,src_ip
     pkt_time = str(pkt.frame_info.time_epoch)
     day_index = calculate_slot(pkt_time)
+    if day_index == None:
+        return
     nd.setdefault(src_ip, {}).setdefault(dst_ip, [0]*(days+1))
     #print(src_ip + "  " + dst_ip + str(nd[src_ip][dst_ip]))
-    nd[src_ip][dst_ip][day_index] +=1
-
+    try:
+        nd[src_ip][dst_ip][day_index] +=1
+    except TypeError as e:
+        print(str(pkt.number))
+        print("src :" + src_ip + " dst :" + dst_ip + " pkt time: " + pkt_time)
 
 def print_highest_layer(pkt):
     print (pkt.highest_layer)
@@ -185,29 +124,45 @@ counter = 0
 
 cap.apply_on_packets(print_conversation_header)
 
-for key in nd:
-    for host in nd[key]:
-        print(key + "==>" + host + " : " + str(nd[key][host]))
-
-
-outfile = open('arp_graph_variance.txt','w')
-
-
+outfile = open('arp_analyze_v4.txt','w')
 
 for key in nd:
     for host in nd[key]:
-        #key_resolved = resolve(key)
-        #host_resolved =resolve(host)
-        # temp_sentence = key_resolved + " " + host_resolved + "  " + str(nd[key][host])
-        variance = np.var(nd[key][host])
-        mean = np.mean(nd[key][host])
-        if variance != 0:
-            weight = mean / variance
-        else:
-            weight = mean
-        temp_sentence = key + " " + host + "  " + str(weight)
-        print(temp_sentence)
+        key_resolved = resolve_by_db(key)
+        host_resolved = resolve_by_db(host)
+        if key_resolved == "''" or key_resolved is None or key_resolved == "":
+            key_resolved = key
+        if host_resolved == "''" or host_resolved is None or host_resolved == "":
+            host_resolved = host
+        print(key_resolved + " --> " + host_resolved + " : " + str(nd[key][host]))
+        temp_sentence = key_resolved + "  " + host_resolved + "  " + str(nd[key][host])
         outfile.write(temp_sentence + "\n")
 
-
 outfile.close()
+
+#
+# fetched = {}
+#
+# for key in nd:
+#     for host in nd[key]:
+#         #key_resolved = resolve(key)
+#         #host_resolved =resolve(host)
+#         # temp_sentence = key_resolved + " " + host_resolved + "  " + str(nd[key][host])
+#         variance = np.var(nd[key][host])
+#         mean = np.mean(nd[key][host])
+#         if variance != 0:
+#             weight = mean / variance
+#         else:
+#             weight = mean
+#         key_resolved = resolve_by_db(key)
+#         host_resolved = resolve_by_db(host)
+#         if key_resolved == "''" or key_resolved is None or key_resolved == "":
+#             key_resolved = key
+#         if host_resolved == "''" or host_resolved is None or host_resolved == "":
+#             host_resolved = host
+#         print(key_resolved + " --> " + host_resolved + " : " + str(nd[key][host]))
+#         temp_sentence = key_resolved + " " + host_resolved + "  " + str(weight)
+#         #print(temp_sentence)
+#         outfile.write(temp_sentence + "\n")
+#
+# outfile.close()
