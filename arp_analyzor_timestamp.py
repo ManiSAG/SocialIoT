@@ -21,7 +21,7 @@ timeout_time = 2
 global resolved_dict
 resolved_dict = {}
 
-input_pcap = '/root/captures/sofar.pcap'
+input_pcap = '/root/captures/arp.pcap'
 #for the ARP Packets we read the pcap from the CNR and filter the traffic for arp packets but the ARPs which is not emmited from
 #the DHCP Server 146.48.99.254
 
@@ -124,7 +124,8 @@ counter = 0
 
 cap.apply_on_packets(print_conversation_header)
 
-outfile = open('arp_analyze_v4.txt','w')
+outfile = open('arp_analyze_v6.txt','w')
+outfile2 = open('arp_analyze_v6_resolved.txt','w')
 
 for key in nd:
     for host in nd[key]:
@@ -136,33 +137,10 @@ for key in nd:
             host_resolved = host
         print(key_resolved + " --> " + host_resolved + " : " + str(nd[key][host]))
         temp_sentence = key_resolved + "  " + host_resolved + "  " + str(nd[key][host])
-        outfile.write(temp_sentence + "\n")
+        outfile2.write(temp_sentence + "\n")
+        temp_sentence = key + "  " + host + "  " + str(nd[key][host])
+        outfile.write(temp_sentence  + "\n")
 
 outfile.close()
+outfile2.close()
 
-#
-# fetched = {}
-#
-# for key in nd:
-#     for host in nd[key]:
-#         #key_resolved = resolve(key)
-#         #host_resolved =resolve(host)
-#         # temp_sentence = key_resolved + " " + host_resolved + "  " + str(nd[key][host])
-#         variance = np.var(nd[key][host])
-#         mean = np.mean(nd[key][host])
-#         if variance != 0:
-#             weight = mean / variance
-#         else:
-#             weight = mean
-#         key_resolved = resolve_by_db(key)
-#         host_resolved = resolve_by_db(host)
-#         if key_resolved == "''" or key_resolved is None or key_resolved == "":
-#             key_resolved = key
-#         if host_resolved == "''" or host_resolved is None or host_resolved == "":
-#             host_resolved = host
-#         print(key_resolved + " --> " + host_resolved + " : " + str(nd[key][host]))
-#         temp_sentence = key_resolved + " " + host_resolved + "  " + str(weight)
-#         #print(temp_sentence)
-#         outfile.write(temp_sentence + "\n")
-#
-# outfile.close()

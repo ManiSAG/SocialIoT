@@ -52,6 +52,33 @@ def run_complex_command(command,cursor):
     call_command = "call select_or_insert(); "
     cursor.execute(call_command)
 
+def get_browser_info(ip_addr):
+    # Open database connection
+    db = pymysql.connect("localhost", "root", "Vahid737", "lan_hosts")
+    try:
+        cursor = db.cursor()
+        command = "SELECT `browser_server`,`browser_comment` FROM `resolution` WHERE `IP_addr` = '{}';".format(ip_addr)
+        cursor.execute(command)
+        rows = cursor.fetchall()
+    except Exception as e:
+        print("Exception occured:{}".format(e))
+
+    if len(rows) == 0:
+        return ""
+
+    db.commit()
+    db.close()
+    for row in rows:
+        if row[1] is None:
+            second= ""
+        else:
+            second = row[1]
+        if row[0] is None:
+            first = ""
+        else:
+            first = row[0]
+        return first + " " + second
+
 
 def resolve_by_db(ip_addr):
     # Open database connection
