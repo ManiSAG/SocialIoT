@@ -70,7 +70,7 @@ print(slots)
 
 cap = pyshark.FileCapture(input_pcap,display_filter="arp")
 
-nd = nested_dict(2, list)
+nd = nested_dict(3, list)
 
 
 def calculate_slot(pkt_time):
@@ -103,12 +103,17 @@ def print_conversation_header(pkt):
             src_ip , dst_ip = dst_ip ,src_ip
     pkt_time = str(pkt.frame_info.time_epoch)
     day_index = calculate_slot(pkt_time)
+
+    datetime_pkt = datetime.fromtimestamp(int(pkt_time.split('.')[0]))
+
     if day_index == None:
         return
-    nd.setdefault(src_ip, {}).setdefault(dst_ip, [0]*(days+1))
+    nd.setdefault(src_ip, {}).setdefault(dst_ip, {}).setdefault(day_index, [0] * 24)
+    #    nd.setdefault(src_ip, {}).setdefault(dst_ip, [0]*(days+1))
+    #nd.setdefault(src_ip, {}).setdefault(dst_ip, {} [0]*(days+1))
     #print(src_ip + "  " + dst_ip + str(nd[src_ip][dst_ip]))
     try:
-        nd[src_ip][dst_ip][day_index] +=1
+        nd[src_ip][dst_ip][day_index][datetime_pkt.hour] +=1
     except TypeError as e:
         print(str(pkt.number))
         print("src :" + src_ip + " dst :" + dst_ip + " pkt time: " + pkt_time)
@@ -127,6 +132,8 @@ cap.apply_on_packets(print_conversation_header)
 outfile = open('arp_analyze_v6.txt','w')
 outfile2 = open('arp_analyze_v6_resolved.txt','w')
 
+print(nd)
+
 for key in nd:
     for host in nd[key]:
         key_resolved = resolve_by_db(key)
@@ -135,11 +142,12 @@ for key in nd:
             key_resolved = key
         if host_resolved == "''" or host_resolved is None or host_resolved == "":
             host_resolved = host
-        print(key_resolved + " --> " + host_resolved + " : " + str(nd[key][host]))
-        temp_sentence = key_resolved + "  " + host_resolved + "  " + str(nd[key][host])
-        outfile2.write(temp_sentence + "\n")
-        temp_sentence = key + "  " + host + "  " + str(nd[key][host])
-        outfile.write(temp_sentence  + "\n")
+        for day in nd[key][host]:
+            print(key_resolved + " --> " + host_resolved + " :" + str(day) + " " + str(nd[key][host][day]))
+            temp_sentence = key_resolved + "  " + host_resolved + " :" + str(day) + " " + str(nd[key][host][day])
+            outfile2.write(temp_sentence + "\n")
+            temp_sentence = key + "  " + host + " :" + str(day) + " " + str(nd[key][host][day])
+            outfile.write(temp_sentence  + "\n")
 
 outfile.close()
 outfile2.close()

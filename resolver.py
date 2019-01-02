@@ -177,3 +177,19 @@ def resolve_by_snmp(host):
         return ""
     else:
         return stdoutput.split()[-1]
+
+def get_type(ip_addr):
+    # Open database connection
+    db = pymysql.connect("localhost", "root", "Vahid737", "lan_hosts")
+    cursor = db.cursor()
+
+    try:
+        command = "SELECT `type` FROM `resolution` WHERE `IP_addr` = '{}';".format(ip_addr)
+        cursor.execute(command)
+        rows = cursor.fetchall()
+    except Exception as e:
+        print("Exception occured:{}".format(e))
+
+
+    for row in rows:
+        return row[0]

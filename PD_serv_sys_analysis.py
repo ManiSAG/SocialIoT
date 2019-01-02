@@ -14,19 +14,6 @@ iterations = 10
 db = pymysql.connect("localhost", "root", "Vahid737", "lan_hosts")
 cursor = db.cursor()
 
-def get_type(ip_addr,cursor):
-    # Open database connection
-    try:
-        command = "SELECT `type` FROM `resolution` WHERE `IP_addr` = '{}';".format(ip_addr)
-        cursor.execute(command)
-        rows = cursor.fetchall()
-    except Exception as e:
-        print("Exception occured:{}".format(e))
-
-
-    for row in rows:
-        return row[0]
-
 
 
 # create zero array
@@ -91,8 +78,8 @@ for threshold in range(0,iterations):
         dsum = np.sum(interactions)
         avg_freq = dsum/len(interactions)
         if avg_freq > threshold:
-            type_from = get_type(host_from, cursor)
-            type_to = get_type(host_to, cursor)
+            type_from = get_type(host_from)
+            type_to = get_type(host_to)
             if type_from is not None and  type_to is not None and threshold == 9:
                 key_resolved = resolve_by_db(host_from)
                 host_resolved = resolve_by_db(host_to)

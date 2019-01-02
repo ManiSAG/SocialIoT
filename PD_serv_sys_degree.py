@@ -13,18 +13,6 @@ iterations = 50
 db = pymysql.connect("localhost", "root", "Vahid737", "lan_hosts")
 cursor = db.cursor()
 
-def get_type(ip_addr,cursor):
-    # Open database connection
-    try:
-        command = "SELECT `type` FROM `resolution` WHERE `IP_addr` = '{}';".format(ip_addr)
-        cursor.execute(command)
-        rows = cursor.fetchall()
-    except Exception as e:
-        print("Exception occured:{}".format(e))
-    for row in rows:
-        return row[0]
-
-
 
 # create zero array
 global data
@@ -81,7 +69,7 @@ def get_degree(temp_file,cursor):
     arp_deg = arp_g.degree(mode="all")
     #sort_index = np.argsort(arp_deg)[::-1]
     for index in range(0,len(arp_deg)):
-        ttype = get_type(arp_v[index]['name'],cursor)
+        ttype = get_type(arp_v[index]['name'])
         if ttype == "PD":
             pd_list.append(arp_deg[index])
             nd[arp_v[index]['name']] = ('PD',arp_deg[index])
@@ -101,7 +89,7 @@ def get_degree(temp_file,cursor):
 
 all_lines = infile.readlines()
 
-for threshold in range(0,iterations,1):
+for threshold in np.logspace(1,13,num=13-1+1,base=2,dtype='int'):
     pd_list = []
     serv_list = []
     sys_list = []
@@ -129,8 +117,8 @@ for threshold in range(0,iterations,1):
         avg_freq = dsum/len(interactions)
         if avg_freq > threshold:
             outgraph.write(host_from + " " + host_to + " " + str(avg_freq) + "\n")
-            type_from = get_type(host_from, cursor)
-            type_to = get_type(host_to, cursor)
+            type_from = get_type(host_from)
+            type_to = get_type(host_to)
             #PD_serv_sys_analyze(threshold,type_from,type_to)
     outgraph.close()
     outgraph = open('temporaty.txt', 'r')
@@ -155,14 +143,14 @@ for threshold in range(0,iterations,1):
     print("unknown_list : " + str(unknown_list))
 
 
-    out_pic = 'serv_Figures/serv_degree_v2_th' + str(threshold) + ".png"
-    my_list = pd_list
+    out_pic = 'unknown_Figures/unknown_degree_v2_th' + str(threshold) + ".png"
+    my_list = unknown_list
     #sleep(5)
     fig = plt.hist(my_list, bins=range(1,max(my_list)+2), color = 'red')
 
 
     #sleep(5)
-    plt.title("Service Node's degree")
+    plt.title("Unknown Node's degree")
     plt.xlabel("degree")
     plt.ylabel("Frequency")
     #sleep(5)
