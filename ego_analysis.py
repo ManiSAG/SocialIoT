@@ -46,7 +46,6 @@ def PD_serv_sys_analyze(threshold, type_to,host_from):
 
 all_lines = infile.readlines()
 
-type_file = open('arp_type_graph_v6.txt','w')
 
 for threshold in range(0,iterations):
     #PD_to_PD = PD_to_service = PD_to_sysadmin = service_to_service = service_to_sysadmin = sysadmin_to_sysadmin = 0
@@ -77,12 +76,10 @@ for threshold in range(0,iterations):
                     key_resolved = host_from
                 if host_resolved == "''" or host_resolved is None or host_resolved == "":
                     host_resolved = host_to
-                type_file.write(key_resolved + " " + host_resolved + " " + str(avg_freq) + " " + type_from + "-" + type_to + "\n")
             PD_serv_sys_analyze(threshold,type_to,host_from)
 
 print(nd)
 
-type_file.close()
 
 pd_dict = {}
 serv_dict = {}
