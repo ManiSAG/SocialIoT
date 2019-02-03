@@ -16,14 +16,14 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Load dataset
-url = "iris.csv"
-names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
+url = "trained_set.csv"
+names = ['PD', 'service', 'sysadmin', 'ip']
 dataset = pandas.read_csv(url,names=names)
 
 # Split-out validation dataset
 array = dataset.values
-X = array[:,0:4]
-Y = array[:,4]
+X = array[:,0:3]
+Y = array[:,3]
 validation_size = 0.20
 seed = 7
 X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
@@ -35,7 +35,7 @@ scoring = 'accuracy'
 # Spot Check Algorithms
 models = []
 models.append(('LR', LogisticRegression(solver='lbfgs')))
-models.append(('LDA', LinearDiscriminantAnalysis()))
+#models.append(('LDA', LinearDiscriminantAnalysis()))
 models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
 models.append(('NB', GaussianNB()))

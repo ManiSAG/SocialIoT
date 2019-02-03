@@ -1,25 +1,14 @@
-# create sample data
-from datetime import datetime, timedelta
-d = datetime.now()
-data = [d + timedelta(minutes=i) for i in range(1,100)]
+import pandas as pd
+import numpy as np
+from pandas.plotting import scatter_matrix
+import matplotlib.pyplot as plt
 
 
-def calculate_hour_slot(pkt_time):
-    prev_time = find_previuos_hour(pkt_time)
-    hour_timestamp
-    return  (pkt_time-prev_time/)
-# prepare and group the data
-from itertools import groupby
+# plt.style.use('ggplot')
 
-def get_key(d):
-    # group by 30 minutes
-    k = d + timedelta(minutes=-(d.minute % 30))
-    return datetime(k.year, k.month, k.day, k.hour, k.minute, 0)
 
-g = groupby(sorted(data), key=get_key)
+df = pd.DataFrame(np.random.randn(1000, 4), columns=['a', 'b', 'c', 'd'])
 
-# print data
-for key, items in g:
-    print (key)
-    for item in items:
-        print ('-', item)
+scatter_matrix(df, alpha=0.2, figsize=(6, 6), diagonal='kde')
+
+plt.show()

@@ -89,7 +89,7 @@ def print_conversation_header(pkt):
     # if str(pkt.arp.src_hw_mac).startswith('d8:18:d3'):
     #     return
     my_data = pkt['ARP']
-    src_ip = my_data.src_proto_ipv4
+    src_ip = my_data.src_proto_ipv4z
     dst_ip = my_data.dst_proto_ipv4
     #IP addresses which are related to sysadmin : '146.48.96.3','146.48.96.1','146.48.96.2','146.48.98.155' ,'192.168.100.1'
     if src_ip == '0.0.0.0' or src_ip.startswith('169.254'):
