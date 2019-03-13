@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4e5c201-aa1d-46ce-8bca-5f22f30d7083" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/feature_extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/supervised_new_features.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unsupervised_new_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BroadMulticast/src/classFrames.py" beforeDir="false" afterPath="$PROJECT_DIR$/BroadMulticast/src/classFrames.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BroadMulticast/src/run_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/BroadMulticast/src/run_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BroadMulticast_v2/src/classFrames.py" beforeDir="false" afterPath="$PROJECT_DIR$/BroadMulticast_v2/src/classFrames.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BroadMulticast_v2/src/run_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/BroadMulticast_v2/src/run_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_deletMe.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_deletMe.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,58 +29,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BroadMulticast/src/run_test.py">
+        <entry file="file://$PROJECT_DIR$/BroadMulticast_v2/src/run_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+            <state relative-caret-position="120">
+              <caret line="73" column="23" lean-forward="true" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Resolution_db.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
-              <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resolver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2175">
-              <caret line="151" column="41" selection-start-line="151" selection-start-column="41" selection-end-line="151" selection-end-column="41" />
-              <folding>
-                <marker date="1545357056570" expanded="true" signature="1367:2084" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Browser_analyzor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BroadMulticast/output">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8160">
-              <caret line="544" column="39" selection-start-line="544" selection-start-column="39" selection-end-line="544" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -138,7 +85,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/BroadMulticast" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/BroadMulticast_v2" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -191,6 +138,7 @@
         <option value="$PROJECT_DIR$/test_deletMe.py" />
         <option value="$PROJECT_DIR$/BroadMulticast/src/classFrames.py" />
         <option value="$PROJECT_DIR$/BroadMulticast/src/run_test.py" />
+        <option value="$PROJECT_DIR$/BroadMulticast_v2/src/run_test.py" />
       </list>
     </option>
   </component>
@@ -205,6 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,19 +164,18 @@
             <path>
               <item name="printer_social" type="b2602c69:ProjectViewProjectNode" />
               <item name="printer_social" type="462c0819:PsiDirectoryNode" />
-              <item name="BroadMulticast" type="462c0819:PsiDirectoryNode" />
+              <item name="BroadMulticast_v2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="printer_social" type="b2602c69:ProjectViewProjectNode" />
               <item name="printer_social" type="462c0819:PsiDirectoryNode" />
-              <item name="BroadMulticast" type="462c0819:PsiDirectoryNode" />
+              <item name="BroadMulticast_v2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -399,7 +347,8 @@
       <workItem from="1552061189537" duration="3317000" />
       <workItem from="1552343118053" duration="700000" />
       <workItem from="1552415505230" duration="2018000" />
-      <workItem from="1552429481517" duration="44000" />
+      <workItem from="1552429481517" duration="1004000" />
+      <workItem from="1552499105157" duration="1064000" />
     </task>
     <task id="LOCAL-00001" summary="Remove vim garbages">
       <created>1541090146818</created>
@@ -443,11 +392,18 @@
       <option name="project" value="LOCAL" />
       <updated>1549217038515</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Luca's code added, updated with browser, DHCP and DHCPv6 information">
+      <created>1552429632695</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552429632705</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30225000" />
+    <option name="totallyTimeSpent" value="32249000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -462,7 +418,7 @@
     <frame x="0" y="23" width="1280" height="657" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49604222" visible="true" weight="0.2609047" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49604222" visible="true" weight="0.26494345" />
       <window_info id="Structure" order="1" sideWeight="0.5039578" side_tool="true" weight="0.23907864" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -495,7 +451,8 @@
     <MESSAGE value="clock analysis v3 added . New scripts added for plotting better. Ego analysis added" />
     <MESSAGE value="new ego analysis added , ML analysis started" />
     <MESSAGE value="Machine learning with different methods added, 80-20 train-test method used" />
-    <option name="LAST_COMMIT_MESSAGE" value="Machine learning with different methods added, 80-20 train-test method used" />
+    <MESSAGE value="Luca's code added, updated with browser, DHCP and DHCPv6 information" />
+    <option name="LAST_COMMIT_MESSAGE" value="Luca's code added, updated with browser, DHCP and DHCPv6 information" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -783,13 +740,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PD_serv_sys_degree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="119" column="32" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/arp_analyzor_timestamp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -882,8 +832,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trained_set.csv">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="csv-text-editor" />
+      <provider editor-type-id="text-editor" />
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
@@ -1136,32 +1086,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BroadMulticast/src/classFrames.py">
+    <entry file="file://$PROJECT_DIR$/BroadMulticast/output">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12450">
-          <caret line="833" column="8" selection-start-line="833" selection-start-column="8" selection-end-line="833" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="8160">
+          <caret line="544" column="39" selection-start-line="544" selection-start-column="39" selection-end-line="544" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Resolution_db.py">
+    <entry file="file://$PROJECT_DIR$/BroadMulticast/src/run_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
+        <state relative-caret-position="180">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resolver.py">
+    <entry file="file://$PROJECT_DIR$/Resolution_db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2175">
-          <caret line="151" column="41" selection-start-line="151" selection-start-column="41" selection-end-line="151" selection-end-column="41" />
+        <state relative-caret-position="480">
+          <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
           <folding>
-            <marker date="1545357056570" expanded="true" signature="1367:2084" ph="..." />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1176,17 +1123,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BroadMulticast/output">
+    <entry file="file://$PROJECT_DIR$/resolver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8160">
-          <caret line="544" column="39" selection-start-line="544" selection-start-column="39" selection-end-line="544" selection-end-column="39" />
+        <state relative-caret-position="480">
+          <caret line="151" column="41" selection-start-line="151" selection-start-column="41" selection-end-line="151" selection-end-column="41" />
+          <folding>
+            <marker date="1545357056570" expanded="true" signature="1367:2084" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BroadMulticast/src/run_test.py">
+    <entry file="file://$PROJECT_DIR$/BroadMulticast/src/classFrames.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        <state relative-caret-position="12450">
+          <caret line="833" column="8" selection-start-line="833" selection-start-column="8" selection-end-line="833" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BroadMulticast_v2/src/run_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="73" column="23" lean-forward="true" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
