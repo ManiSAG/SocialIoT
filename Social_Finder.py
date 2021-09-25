@@ -22,19 +22,6 @@ def resolve(ipa):
         except CalledProcessError:
             pass
 
-# for line in infile.readlines():
-#     matchObj = re.match(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}",line)
-#     if matchObj:
-#         if '->' not in line:
-#             if printer_ip == " ":
-#                 printer_ip = line[:-1]
-#             relations[printer_ip] = hosts
-#             hosts= set()
-#             printer_ip = line[:-1]
-#         elif '->' in line:
-#             if '0.0.0.0' not in line and '127.0.0' not in line:
-#                 host_ip = line.split('->')[1].split(':')[0]
-#                 hosts.add(host_ip)
 
 # this function reads the input file line by line and fills the relations dictionary
 # the keys in this dictionary are printer and value is a set of IP addresses of the hosts that printed on the key printer.
@@ -49,8 +36,6 @@ for line in infile.readlines():
                 relations[printer_ip].add(host_ip)
             except KeyError:
                 relations[printer_ip] = {host_ip}
-
-
 
 
 print (relations)
